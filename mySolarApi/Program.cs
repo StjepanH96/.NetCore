@@ -1,4 +1,3 @@
-// 1. Stavi sve using direktive na početak datoteke
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
