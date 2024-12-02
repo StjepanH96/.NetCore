@@ -55,7 +55,7 @@ namespace SolarApp.Services
                                 {
                                     Timestamp = DateTime.UtcNow,
                                     Production = production,
-                                    TimeseriesType = "15-minute", // Granularity: 15 minutes
+                                    TimeseriesType = "1-minute", 
                                     SolarPowerPlantId = plant.Id,
                                     SolarPowerPlantName = plant.Name
                                 };

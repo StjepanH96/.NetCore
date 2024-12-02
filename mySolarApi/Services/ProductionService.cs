@@ -67,7 +67,7 @@ namespace SolarApp.Services
 
     // Ovdje spremamo proizvodnju za svaki 15-minutni interval, testni slučaj, inače sat vremena
     decimal totalProductionFor15Min = 0;
-    int count = 0; // Brojač za sat
+    int count = 0; // Brojač 
 
     while (currentTime <= endDate)
     {
@@ -82,9 +82,9 @@ namespace SolarApp.Services
         {
             productionDataList.Add(new ProductionData
             {
-                Timestamp = currentTime.AddMinutes(15), // Spremamo proizvodnju na kraju intervala od penaest minuta
+                Timestamp = currentTime.AddMinutes(15), // Spremamo proizvodnju na kraju intervala od penaest minuta inace sat vremena
                 Production = totalProductionFor15Min,
-                TimeseriesType = "15-minute",
+                TimeseriesType = "15-minuteSave",
                 SolarPowerPlantId = solarPowerPlant.Id,
             });
 
