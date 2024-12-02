@@ -69,7 +69,6 @@ namespace SolarApp.Services
         {
             decimal production = CalculateForecastedProduction(solarPowerPlant.InstalledPower, weatherData);
 
-            _logger.LogInformation($"Simulated production at {currentTime}: {production} kWh.");
 
             productionDataList.Add(new ProductionData
             {
