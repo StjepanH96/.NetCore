@@ -5,6 +5,7 @@ using SolarApp.Models;
 using SolarApp.Repositories;
 using System;
 using System.Linq;
+using System.Collections.Generic; // Dodano za Dictionary
 using System.Threading;
 using System.Threading.Tasks;
 using SolarApp.Services;
@@ -15,6 +16,8 @@ namespace SolarApp.Services
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<WeatherUpdateBackgroundService> _logger;
+        private Dictionary<int, decimal> _totalProductionByPlant = new(); 
+        private Dictionary<int, int> _countByPlant = new(); 
 
         public WeatherUpdateBackgroundService(
             IServiceProvider serviceProvider,
@@ -30,8 +33,6 @@ namespace SolarApp.Services
             {
                 try
                 {
-
-              
                     using (var scope = _serviceProvider.CreateScope())
                     {
                         var solarPlantRepository = scope.ServiceProvider.GetRequiredService<ISolarPlantRepository<SolarPowerPlant>>();
@@ -43,19 +44,34 @@ namespace SolarApp.Services
 
                         foreach (var plant in solarPowerPlants)
                         {
+                            if (!_totalProductionByPlant.ContainsKey(plant.Id))
+                            {
+                                _totalProductionByPlant[plant.Id] = 0; 
+                            }
+                            if (!_countByPlant.ContainsKey(plant.Id))
+                            {
+                                _countByPlant[plant.Id] = 0; 
+                            }
+                        }
 
+                        // U ovoj petlji provjeravamo svaku solarnu elektranu
+                        foreach (var plant in solarPowerPlants)
+                        {
                             var weatherData = await weatherService.GetWeatherDataForSolarPlantAsync(plant.Latitude, plant.Longitude);
                             if (weatherData != null)
                             {
                                 _logger.LogInformation($"Weather data for plant {plant.Name} retrieved successfully.");
 
+                                // Računanje proizvodnje
                                 var production = productionService.CalculateForecastedProduction(plant.InstalledPower, weatherData);
+                                _totalProductionByPlant[plant.Id] += production; // Akumuliramo proizvodnju za tu elektranu
+                                _countByPlant[plant.Id]++; // Povećavamo brojač minuta za tu elektranu
 
                                 var productionData = new ProductionData
                                 {
                                     Timestamp = DateTime.UtcNow,
                                     Production = production,
-                                    TimeseriesType = "1-minute", 
+                                    TimeseriesType = "15-minutes", 
                                     SolarPowerPlantId = plant.Id,
                                     SolarPowerPlantName = plant.Name
                                 };
@@ -68,6 +84,29 @@ namespace SolarApp.Services
                                 _logger.LogWarning($"Weather data for plant {plant.Name} could not be retrieved.");
                             }
                         }
+
+                        // Provjeravamo je li prošlo 4 puta po 15  za svaku elektranu.
+                        foreach (var plant in solarPowerPlants)
+                        {
+                            if (_countByPlant[plant.Id] >= 4) 
+                            {
+                                var productionData4Min = new ProductionData
+                                {
+                                    Timestamp = DateTime.UtcNow, // Koristimo trenutni vremenski pečat
+                                    Production = _totalProductionByPlant[plant.Id], // Ukupna proizvodnja za tu elektranu
+                                    TimeseriesType = "Hourly-Save",
+                                    SolarPowerPlantId = plant.Id,
+                                    SolarPowerPlantName = plant.Name
+                                };
+
+                                await productionDataRepository.AddProductionDataAsync(productionData4Min);
+                                _logger.LogInformation($"4-minute production data saved: Plant: {plant.Name}, Timestamp: {productionData4Min.Timestamp}, Total Production: {productionData4Min.Production} kW.");
+
+                                // Resetartamo ukupnu proizvodnju i brojač za tu elektranu
+                                _totalProductionByPlant[plant.Id] = 0;
+                                _countByPlant[plant.Id] = 0;
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -75,8 +114,7 @@ namespace SolarApp.Services
                     _logger.LogError(ex, "Error occurred while updating production data for solar plants.");
                 }
 
-                // Pause for 1 minute
-                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+                await Task.Delay(TimeSpan.FromMinutes(15), stoppingToken);
             }
         }
     }
