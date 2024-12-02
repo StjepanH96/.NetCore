@@ -10,15 +10,18 @@ Ova aplikacija omogućuje kreiranje i upravljanje solarnim elektranama, kao i do
 - ** logovi 
 <img width="1440" alt="Slika zaslona 2024-12-02 u 16 14 30" src="https://github.com/user-attachments/assets/25af9adc-1227-4fbb-b0fe-d6b1c16a418a">
 
-Primjer u responsu
-<img width="850" alt="Slika zaslona 2024-12-02 u 14 04 25" src="https://github.com/user-attachments/assets/fe452c02-392a-4da0-a264-1c5d6a3c2d4a">
-<img width="809" alt="Slika zaslona 2024-12-02 u 14 04 32" src="https://github.com/user-attachments/assets/b04d3ee5-7384-4979-b086-91673322c483">
+Primjer loga  samo za test, granularnost jedna minuta, 4 minute zapis. Ukupna produktivnost za dvije elektrane, u logovima se zapisuje pojedinačna isto tako kao što je vidljivo 
+<img width="1440" alt="Slika zaslona 2024-12-02 u 18 27 05" src="https://github.com/user-attachments/assets/309e414f-5a29-4854-9843-fb34fe6f7f8b">
+![Slika zaslona 2024-12-02 u 18 27 21 (2)](https://github.com/user-attachments/assets/064d6942-fa76-4497-8ceb-99be57f412ed)
+
+
 
 
 ### Napomena:
 - Prilikom dodavanja solarne elektrane, aplikacija automatski izračunava prognozu proizvodnje temeljem vremenskih uvjeta dohvaćenih s **OpenWeather API**. 
-- Zbog testiranja i praktičnosti iako sam napisao logiku, i iako nije specificirano u zadatku, stavio sam da se produkcijski podaci za svaku elektranu  dohvaćaju **svaku minutu**, neovisno o broju elektrana. Granularnost je izmjenjena zbog testiranja,  naveo sam komentare u Production Service komponenti i logiku za granularnost, gdje bi se resetala ovisno o parametrima, u slučaju zadatka sat vremena. 
-- Pristupanje endpointima, kao što je navedeno zaštićeno je jwt tokenom tako da ga nemojte zaboraviti postaviti  u headeru za autorizaciju preko postmana
+- Svakih petnaest minuta će se dodati zapis, granularnost je konfigurirana da nakon četiri zapisa, doda se 1 hour zapis koji će izračunati ukupnu produktivnost elektrane u tom periodu od 4 zapisa.
+- Ako korisnik ima više od jedne elektrane, za svaku elektranu će se zapisivati zasebno. Slika iznad
+- Pristupanje endpointima, kao što je navedeno zaštićeno je jwt tokenom. Postavite ga u header.
 ## Instalacija i Pokretanje Aplikacije
 
 1. **Klonirajte projekt** na svoje računalo.
