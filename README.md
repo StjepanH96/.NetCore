@@ -10,7 +10,7 @@ Ova aplikacija omogućuje kreiranje i upravljanje solarnim elektranama, kao i do
 
 ### Napomena:
 - Prilikom dodavanja solarne elektrane, aplikacija automatski izračunava prognozu proizvodnje temeljem vremenskih uvjeta dohvaćenih s **OpenWeather API**. 
-- Zbog testiranja i praktičnosti iako sam napisao logiku, i iako nije specificirano u zadatku, stavio sam da se produkcijski podaci za svaku elektranu  dohvaćaju **svaku minutu**, neovisno o broju elektrana.
+- Zbog testiranja i praktičnosti iako sam napisao logiku, i iako nije specificirano u zadatku, stavio sam da se produkcijski podaci za svaku elektranu  dohvaćaju **svaku minutu**, neovisno o broju elektrana. Granularnost je izmjenjena zbog testiranja,  naveo sam komentare u Production Service komponenti. 
 - Pristupanje endpointima, kao što je navedeno zaštićeno je jwt tokenom tako da ga nemojte zaboraviti staviti u headeru za autorizaciju preko postmana
 ## Instalacija i Pokretanje Aplikacije
 
