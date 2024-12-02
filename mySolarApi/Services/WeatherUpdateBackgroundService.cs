@@ -91,17 +91,16 @@ namespace SolarApp.Services
                             {
                                 var productionData4Min = new ProductionData
                                 {
-                                    Timestamp = DateTime.UtcNow, // Koristimo trenutni vremenski pečat
-                                    Production = _totalProductionByPlant[plant.Id], // Ukupna proizvodnja za tu elektranu
+                                    Timestamp = DateTime.UtcNow, // Koristimo trenutno vrijeme
+                                    Production = _totalProductionByPlant[plant.Id], 
                                     TimeseriesType = "Hourly-Save",
                                     SolarPowerPlantId = plant.Id,
                                     SolarPowerPlantName = plant.Name
                                 };
 
                                 await productionDataRepository.AddProductionDataAsync(productionData4Min);
-                                _logger.LogInformation($"4-minute production data saved: Plant: {plant.Name}, Timestamp: {productionData4Min.Timestamp}, Total Production: {productionData4Min.Production} kW.");
+                                _logger.LogInformation($"Hourly production data saved: Plant: {plant.Name}, Timestamp: {productionData4Min.Timestamp}, Total Production: {productionData4Min.Production} kW.");
 
-                                // Resetartamo ukupnu proizvodnju i brojač za tu elektranu
                                 _totalProductionByPlant[plant.Id] = 0;
                                 _countByPlant[plant.Id] = 0;
                             }
