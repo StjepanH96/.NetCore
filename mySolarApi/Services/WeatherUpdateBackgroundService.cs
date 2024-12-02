@@ -61,7 +61,7 @@ namespace SolarApp.Services
                                 };
 
                                 await productionDataRepository.AddProductionDataAsync(productionData);
-                                _logger.LogInformation($"New production data added for plant {plant.Name} at {DateTime.UtcNow}.");
+                                _logger.LogInformation($"New production data added: Plant: {plant.Name}, Timestamp: {productionData.Timestamp}, Production: {productionData.Production} kW.");
                             }
                             else
                             {
