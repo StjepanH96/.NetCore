@@ -54,7 +54,7 @@ namespace SolarApp.Services
                             }
                         }
 
-                        // U ovoj petlji provjeravamo svaku solarnu elektranu
+                   
                         foreach (var plant in solarPowerPlants)
                         {
                             var weatherData = await weatherService.GetWeatherDataForSolarPlantAsync(plant.Latitude, plant.Longitude);
@@ -62,10 +62,9 @@ namespace SolarApp.Services
                             {
                                 _logger.LogInformation($"Weather data for plant {plant.Name} retrieved successfully.");
 
-                                // Računanje proizvodnje
                                 var production = productionService.CalculateForecastedProduction(plant.InstalledPower, weatherData);
                                 _totalProductionByPlant[plant.Id] += production; // Akumuliramo proizvodnju za tu elektranu
-                                _countByPlant[plant.Id]++; // Povećavamo brojač minuta za tu elektranu
+                                _countByPlant[plant.Id]++; 
 
                                 var productionData = new ProductionData
                                 {

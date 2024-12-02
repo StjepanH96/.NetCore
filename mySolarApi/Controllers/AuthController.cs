@@ -57,7 +57,6 @@ namespace SolarApp.Controllers
         {
             var dbUser = _context.Users.FirstOrDefault(u => u.Username == user.Username);
 
-            // Check if the user exists and the password is correct
             if (dbUser == null || !PasswordHasher.VerifyPassword(user.Password, dbUser.Password))
                 return Unauthorized(" Wrong login data!");
 

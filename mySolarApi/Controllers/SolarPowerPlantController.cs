@@ -66,7 +66,7 @@ public async Task<IActionResult> AddSolarPowerPlant([FromBody] SolarPowerPlant s
 
         productionDataList.Add(new ProductionData
         {
-            Timestamp = DateTimeOffset.FromUnixTimeSeconds(weatherData.Dt).DateTime, // Konvertujemo Unix timestamp u DateTime
+            Timestamp = DateTimeOffset.FromUnixTimeSeconds(weatherData.Dt).DateTime, 
             Production = production,
             TimeseriesType = "Forecasted",
             SolarPowerPlantId = solarPowerPlant.Id
