@@ -8,11 +8,10 @@ Ova aplikacija omogućuje kreiranje i upravljanje solarnim elektranama, kao i do
 - **Dohvaćanje proizvodnih podataka** na temelju vremenskih uvjeta (s OpenWeather API-jem)
 - **Autorizacija pomoću JWT tokena** za pristup zaštićenim API endpointima
 - ** logovi 
-<img width="1440" alt="Slika zaslona 2024-12-02 u 16 14 30" src="https://github.com/user-attachments/assets/25af9adc-1227-4fbb-b0fe-d6b1c16a418a">
 
-Primjer loga  samo za test, granularnost jedna minuta, 4 minute zapis. Ukupna produktivnost za dvije elektrane, u logovima se zapisuje pojedinačna isto tako kao što je vidljivo 
-<img width="1440" alt="Slika zaslona 2024-12-02 u 18 27 05" src="https://github.com/user-attachments/assets/309e414f-5a29-4854-9843-fb34fe6f7f8b">
+Primjer responsa i  loga  samo za test, granularnost jedna minuta, 4 minute zapis. Ukupna produktivnost za dvije elektrane, u logovima se zapisuje pojedinačna isto tako kao što je vidljivo 
 ![Slika zaslona 2024-12-02 u 18 27 21 (2)](https://github.com/user-attachments/assets/064d6942-fa76-4497-8ceb-99be57f412ed)
+<img width="1440" alt="Slika zaslona 2024-12-02 u 18 27 05" src="https://github.com/user-attachments/assets/309e414f-5a29-4854-9843-fb34fe6f7f8b">
 
 
 
