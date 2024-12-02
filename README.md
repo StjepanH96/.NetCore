@@ -7,6 +7,7 @@ Ova aplikacija omogućuje kreiranje i upravljanje solarnim elektranama, kao i do
 - **CRUD operacije (Create, Read, Update, Delete)** za solarne elektrane
 - **Dohvaćanje proizvodnih podataka** na temelju vremenskih uvjeta (s OpenWeather API-jem)
 - **Autorizacija pomoću JWT tokena** za pristup zaštićenim API endpointima
+- ** logovi 
 
 ### Napomena:
 - Prilikom dodavanja solarne elektrane, aplikacija automatski izračunava prognozu proizvodnje temeljem vremenskih uvjeta dohvaćenih s **OpenWeather API**. 
