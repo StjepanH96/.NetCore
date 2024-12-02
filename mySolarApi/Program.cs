@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
+using Serilog;
+using Serilog.Events;
 using SolarApp.Data; 
 using SolarApp.Services;
 using SolarApp.Repositories;
@@ -12,6 +14,21 @@ using SolarApp.Models;
 var builder = WebApplication.CreateBuilder(args);
 var openWeatherApiKey = builder.Configuration["OpenWeatherMap:ApiKey"];
 var openWeatherBaseUrl = builder.Configuration["OpenWeatherMap:BaseUrl"];
+
+ Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration) // Čitanje iz appsettings.json
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: builder.Configuration["Logging:FilePath"] ?? "logs/app.log", 
+        rollingInterval: RollingInterval.Day,
+        fileSizeLimitBytes: 10 * 1024 * 1024, 
+        retainedFileCountLimit: 7, 
+        restrictedToMinimumLevel: LogEventLevel.Information 
+    )
+    .CreateLogger();
+
+// Dodajte Serilog na Host
+builder.Host.UseSerilog();
 
 builder.Services.AddDbContext<SolarDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
