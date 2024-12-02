@@ -8,11 +8,17 @@ Ova aplikacija omogućuje kreiranje i upravljanje solarnim elektranama, kao i do
 - **Dohvaćanje proizvodnih podataka** na temelju vremenskih uvjeta (s OpenWeather API-jem)
 - **Autorizacija pomoću JWT tokena** za pristup zaštićenim API endpointima
 - ** logovi 
+<img width="1440" alt="Slika zaslona 2024-12-02 u 16 14 30" src="https://github.com/user-attachments/assets/25af9adc-1227-4fbb-b0fe-d6b1c16a418a">
+
+Primjer u responsu
+<img width="850" alt="Slika zaslona 2024-12-02 u 14 04 25" src="https://github.com/user-attachments/assets/fe452c02-392a-4da0-a264-1c5d6a3c2d4a">
+<img width="809" alt="Slika zaslona 2024-12-02 u 14 04 32" src="https://github.com/user-attachments/assets/b04d3ee5-7384-4979-b086-91673322c483">
+
 
 ### Napomena:
 - Prilikom dodavanja solarne elektrane, aplikacija automatski izračunava prognozu proizvodnje temeljem vremenskih uvjeta dohvaćenih s **OpenWeather API**. 
-- Zbog testiranja i praktičnosti iako sam napisao logiku, i iako nije specificirano u zadatku, stavio sam da se produkcijski podaci za svaku elektranu  dohvaćaju **svaku minutu**, neovisno o broju elektrana. Granularnost je izmjenjena zbog testiranja,  naveo sam komentare u Production Service komponenti. 
-- Pristupanje endpointima, kao što je navedeno zaštićeno je jwt tokenom tako da ga nemojte zaboraviti staviti u headeru za autorizaciju preko postmana
+- Zbog testiranja i praktičnosti iako sam napisao logiku, i iako nije specificirano u zadatku, stavio sam da se produkcijski podaci za svaku elektranu  dohvaćaju **svaku minutu**, neovisno o broju elektrana. Granularnost je izmjenjena zbog testiranja,  naveo sam komentare u Production Service komponenti i logiku za granularnost, gdje bi se resetala ovisno o parametrima, u slučaju zadatka sat vremena. 
+- Pristupanje endpointima, kao što je navedeno zaštićeno je jwt tokenom tako da ga nemojte zaboraviti postaviti  u headeru za autorizaciju preko postmana
 ## Instalacija i Pokretanje Aplikacije
 
 1. **Klonirajte projekt** na svoje računalo.
@@ -72,4 +78,5 @@ http://localhost:5032/api/Production/{id}
 U body response biti će vam ispisani svi produkcijski zapisi elektrane s obzirom na  vrijeme.
 
 Ukratko, u projektu se koristi weather background service koji prilikom podizanja projekta šalje zahtjev svake minute na weather service koji opet poziva api. Production service računa produktivnost utemljenu na vremenskim podatcima i background servis sve to sprema prije nego što i njega pokrene. Također tu su modalsi, controlleri i ostale stvari koje su složene u projektu.
+
 
