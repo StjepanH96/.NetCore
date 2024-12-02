@@ -16,7 +16,7 @@ var openWeatherApiKey = builder.Configuration["OpenWeatherMap:ApiKey"];
 var openWeatherBaseUrl = builder.Configuration["OpenWeatherMap:BaseUrl"];
 
  Log.Logger = new LoggerConfiguration()
-    .ReadFrom.Configuration(builder.Configuration) // Čitanje iz appsettings.json
+    .ReadFrom.Configuration(builder.Configuration) 
     .WriteTo.Console()
     .WriteTo.File(
         path: builder.Configuration["Logging:FilePath"] ?? "logs/app.log", 
@@ -27,7 +27,7 @@ var openWeatherBaseUrl = builder.Configuration["OpenWeatherMap:BaseUrl"];
     )
     .CreateLogger();
 
-// Dodajte Serilog na Host
+
 builder.Host.UseSerilog();
 
 builder.Services.AddDbContext<SolarDbContext>(options =>
@@ -61,7 +61,7 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
 
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))  // Koristi provjereni jwtKey
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))  
     };
 });
 
