@@ -1,0 +1,6 @@
+@mySolarApi_HostAddress = http://localhost:5032
+
+GET {{mySolarApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

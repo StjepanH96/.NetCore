@@ -1,0 +1,16 @@
+*.log
+*.vspscc
+.vs/
+.vscode/
+.idea/
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.lib
+*.nupkg
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
