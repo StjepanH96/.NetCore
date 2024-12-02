@@ -84,6 +84,6 @@ Postman
 http://localhost:5032/api/Production/{id}
 U body response biti će vam ispisani svi produkcijski zapisi elektrane s obzirom na  vrijeme.
 
-Ukratko, u projektu se koristi weather background service koji prilikom podizanja projekta šalje zahtjev svake minute na weather service koji opet poziva api. Production service računa produktivnost utemljenu na vremenskim podatcima i background servis sve to sprema prije nego što i njega pokrene. Također tu su modalsi, controlleri i ostale stvari koje su složene u projektu.
+Ukratko, u projektu se koristi weather background service koji prilikom podizanja projekta šalje zahtjev svakih petnaest miuta na weather service koji opet poziva api. Production service računa produktivnost utemljenu na vremenskim podatcima i background servis sve to sprema prije nego što i njega pokrene. Također tu su modalsi, controlleri i ostale stvari koje su složene u projektu.
 
 
