@@ -35,7 +35,12 @@ Primjer responsa i  loga  samo za test, granularnost jedna minuta, 4 minute zapi
    - **POST**: `POST api/Auth/register`
    - **Opis**: Registrira novog korisnika.
 
-   **Primjer zahtjeva**:
+   - #### 2. **Prijava korisnika**
+   - **POST**: `POST api/Auth/login`
+   - **Opis**: Prijava novog korisnika.
+   - dobivanje tokena
+         
+   **Primjer zahtjeva za login i register**:
    ```json
    POST /api/Auth/register
    Content-Type: application/json
