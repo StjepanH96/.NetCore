@@ -55,36 +55,50 @@ namespace SolarApp.Services
         return productionData;
     }
 
-    private List<ProductionData> SimulateProductionData(
-        SolarPowerPlant solarPowerPlant,
-        WeatherData weatherData,
-        DateTime startDate,
-        DateTime endDate,
-        string granularity)
+  private List<ProductionData> SimulateProductionData(
+    SolarPowerPlant solarPowerPlant,
+    WeatherData weatherData,
+    DateTime startDate,
+    DateTime endDate,
+    string granularity)
+{
+    var productionDataList = new List<ProductionData>();
+    var currentTime = startDate;
+
+    // Ovdje spremamo proizvodnju za svaki 15-minutni interval, testni slučaj, inače sat vremena
+    decimal totalProductionFor15Min = 0;
+    int count = 0; // Brojač za sat
+
+    while (currentTime <= endDate)
     {
-        var productionDataList = new List<ProductionData>();
-        var currentTime = startDate;
+        decimal production = CalculateForecastedProduction(solarPowerPlant.InstalledPower, weatherData);
+        
+        // Akumuliramo proizvodnju
+        totalProductionFor15Min += production;
+        count++;
 
-        while (currentTime <= endDate)
+        // Provjeravamo da li smo dosegli 15 minuta, ali dali smo dosegli četri minute u našem slučaju
+        if (count == 4) 
         {
-            decimal production = CalculateForecastedProduction(solarPowerPlant.InstalledPower, weatherData);
-
-
             productionDataList.Add(new ProductionData
             {
-                Timestamp = currentTime,
-                Production = production,
-                TimeseriesType = granularity == "1h" ? "Hourly" : "15-minute",
+                Timestamp = currentTime.AddMinutes(15), // Spremamo proizvodnju na kraju intervala od penaest minuta
+                Production = totalProductionFor15Min,
+                TimeseriesType = "15-minute",
                 SolarPowerPlantId = solarPowerPlant.Id,
             });
 
-            currentTime = granularity == "1h"
-                ? currentTime.AddHours(1)
-                : currentTime.AddMinutes(15);
+          
+            totalProductionFor15Min = 0;
+            count = 0;
         }
 
-        return productionDataList;
+      
+        currentTime = currentTime.AddMinutes(1);
     }
+
+    return productionDataList;
+}
 
    public decimal CalculateForecastedProduction(decimal installedPower, WeatherData forecast)
 {
