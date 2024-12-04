@@ -9,8 +9,8 @@ Ova aplikacija omogućuje kreiranje i upravljanje solarnim elektranama, kao i do
 - **Autorizacija pomoću JWT tokena** za pristup zaštićenim API endpointima
 - ** logovi 
 
-Primjer responsa i  loga  samo za test, granularnost jedna minuta, 4 minute zapis. Ukupna produktivnost za dvije elektrane, u logovima se zapisuje pojedinačna isto tako kao što je vidljivo 
-![Slika zaslona 2024-12-02 u 18 27 21 (2)](https://github.com/user-attachments/assets/064d6942-fa76-4497-8ceb-99be57f412ed)
+Primjer responsa i  loga  za test
+
 <img width="1440" alt="Slika zaslona 2024-12-02 u 18 27 05" src="https://github.com/user-attachments/assets/309e414f-5a29-4854-9843-fb34fe6f7f8b">
 <img width="888" alt="Slika zaslona 2024-12-04 u 12 30 28" src="https://github.com/user-attachments/assets/90302535-c1c0-4aa1-bfd2-5bedd8a7d93c">
 
